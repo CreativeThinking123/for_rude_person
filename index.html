@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For SUNITHA</title>
+
+<style>
+
+body{
+margin:0;
+background:#050514;
+font-family:Segoe UI;
+color:white;
+text-align:center;
+overflow:hidden;
+}
+
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:-1;
+}
+
+#lock{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+}
+
+input{
+padding:10px;
+font-size:18px;
+border-radius:6px;
+border:none;
+}
+
+button{
+margin-top:10px;
+padding:10px 20px;
+font-size:18px;
+border:none;
+border-radius:6px;
+background:#ff4da6;
+color:white;
+cursor:pointer;
+}
+
+#scanner{
+display:none;
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.85);
+}
+
+.scanline{
+position:absolute;
+width:100%;
+height:4px;
+background:#00ffff;
+animation:scan 2s linear infinite;
+}
+
+@keyframes scan{
+0%{top:0}
+100%{top:100%}
+}
+
+#main{
+display:none;
+height:100vh;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+padding:20px;
+}
+
+.quote{
+font-size:22px;
+max-width:600px;
+line-height:1.6;
+}
+
+.icon{
+font-size:40px;
+margin-top:20px;
+cursor:pointer;
+}
+
+.bouquet{
+width:260px;
+margin-top:20px;
+display:none;
+border-radius:10px;
+box-shadow:0 0 15px rgba(255,255,255,0.3);
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="galaxy"></canvas>
+
+<div id="lock">
+
+<h2>🔐 Secret Question</h2>
+<p>What is the most beautiful name in the universe?</p>
+
+<input id="answer" placeholder="Type the answer">
+<button onclick="unlock()">Enter</button>
+
+</div>
+
+<div id="scanner">
+
+<div class="scanline"></div>
+<h2 style="margin-top:40vh;">Scanning the universe...</h2>
+
+</div>
+
+<div id="main">
+
+<div id="quote" class="quote">
+Shizuka, the universe feels brighter because you exist.
+Happy Women's Day.
+</div>
+
+<div class="icon">✨ Tap anywhere</div>
+
+<img id="bouquet" class="bouquet">
+
+<audio id="music">
+<source src="https://raw.githubusercontent.com/CreativeThinking123/foryou/main/women.mp3" type="audio/mpeg">
+</audio>
+
+</div>
+
+<script>
+
+/* galaxy background */
+
+const canvas=document.getElementById("galaxy");
+const ctx=canvas.getContext("2d");
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let stars=[];
+
+for(let i=0;i<400;i++){
+
+stars.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+size:Math.random()*2,
+speed:Math.random()*0.3+0.1
+});
+
+}
+
+function animate(){
+
+ctx.fillStyle="#050514";
+ctx.fillRect(0,0,canvas.width,canvas.height);
+
+ctx.fillStyle="white";
+
+stars.forEach(star=>{
+
+ctx.beginPath();
+ctx.arc(star.x,star.y,star.size,0,Math.PI*2);
+ctx.fill();
+
+star.y+=star.speed;
+
+if(star.y>canvas.height){
+star.y=0;
+star.x=Math.random()*canvas.width;
+}
+
+});
+
+requestAnimationFrame(animate);
+
+}
+
+animate();
+
+/* initial screen */
+
+window.onload=function(){
+
+document.getElementById("lock").style.display="flex";
+document.getElementById("main").style.display="none";
+document.getElementById("scanner").style.display="none";
+
+}
+
+/* unlock logic */
+
+function unlock(){
+
+let ans=document.getElementById("answer").value.trim().toLowerCase();
+
+if(ans==="DEVIL"){
+
+document.getElementById("lock").style.display="none";
+document.getElementById("scanner").style.display="block";
+
+setTimeout(function(){
+
+document.getElementById("scanner").style.display="none";
+document.getElementById("main").style.display="flex";
+
+document.getElementById("music").play();
+
+},3000);
+
+}else{
+
+alert("Wrong answer bujuluuu 🙂");
+
+}
+
+}
+
+/* quotes */
+
+const quotes=[
+
+"Happy Women's Day Sunitha. Your presence makes the world brighter.",
+
+"Shizuka, your kindness quietly brings warmth to everyone around you.",
+
+"Happy Women's Day Shizuka. The world feels softer because you are in it.",
+
+"Sunitha, the universe shines brighter because of your smile.",
+
+"Happy Women's Day Sunitha. Just being you makes life more beautiful.",
+
+"Shizuka, today we celebrate the strength and beauty you bring to this world."
+
+];
+
+/* images */
+
+const images=[
+
+"https://raw.githubusercontent.com/CreativeThinking123/for_Devi/main/k1.jpeg",
+
+"https://raw.githubusercontent.com/CreativeThinking123/for_hema/main/h2.jpg",
+
+"https://raw.githubusercontent.com/CreativeThinking123/for_hema/main/h3.jpg",
+
+"https://raw.githubusercontent.com/CreativeThinking123/for_Devi/main/k2.jpeg",
+
+"https://raw.githubusercontent.com/CreativeThinking123/for_hema/main/h4.jpg",
+
+"https://raw.githubusercontent.com/CreativeThinking123/for_Devi/main/k3.jpeg",
+
+"https://raw.githubusercontent.com/CreativeThinking123/for_hema/main/h5.jpg",
+
+"https://raw.githubusercontent.com/CreativeThinking123/for_hema/main/h6.jpg",
+
+"https://raw.githubusercontent.com/CreativeThinking123/for_Devi/main/k4.jpeg"
+
+];
+
+let index=0;
+
+/* click to change quote + image */
+
+document.addEventListener("click",function(){
+
+if(document.getElementById("main").style.display==="flex"){
+
+document.getElementById("quote").innerText=quotes[index];
+
+let img=document.getElementById("bouquet");
+
+img.src=images[index];
+img.style.display="block";
+
+index++;
+
+if(index>=quotes.length){
+index=0;
+}
+
+}
+
+});
+
+</script>
+
+</body>
+</html>
