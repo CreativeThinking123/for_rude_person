@@ -93,8 +93,8 @@ margin-top:20px;
 cursor:pointer;
 }
 
-.bouquet{
-width:260px;
+.media{
+width:300px;
 margin-top:20px;
 display:none;
 border-radius:10px;
@@ -128,23 +128,21 @@ box-shadow:0 0 15px rgba(255,255,255,0.3);
 <div id="main">
 
 <div id="quote" class="quote">
-Shizuka, the universe feels brighter because you exist.
-Happy Women's Day.
+Sunitha, the universe feels brighter because you exist.
 </div>
 
 <div class="icon">✨ Tap anywhere</div>
 
-<img id="bouquet" class="bouquet">
+<img id="imageMedia" class="media">
+<video id="videoMedia" class="media" controls></video>
 
 <audio id="music">
-<source src="https://raw.githubusercontent.com/CreativeThinking123/foryou/main/women.mp3" type="audio/mpeg">
+<source src="https://raw.githubusercontent.com/CreativeThinking123/foryou/main/women.mp3">
 </audio>
 
 </div>
 
 <script>
-
-/* galaxy background */
 
 const canvas=document.getElementById("galaxy");
 const ctx=canvas.getContext("2d");
@@ -193,8 +191,6 @@ requestAnimationFrame(animate);
 
 animate();
 
-/* initial screen */
-
 window.onload=function(){
 
 document.getElementById("lock").style.display="flex";
@@ -203,13 +199,11 @@ document.getElementById("scanner").style.display="none";
 
 }
 
-/* unlock logic */
-
 function unlock(){
 
 let ans=document.getElementById("answer").value.trim().toLowerCase();
 
-if(ans==="DEVIL"){
+if(ans==="devil"){
 
 document.getElementById("lock").style.display="none";
 document.getElementById("scanner").style.display="block";
@@ -231,51 +225,35 @@ alert("Wrong answer bujuluuu 🙂");
 
 }
 
-/* quotes */
-
 const quotes=[
 
-"Happy Women's Day Sunitha. Your presence makes the world brighter.",
+"Sunitha, the universe feels brighter because you exist.",
 
-"Shizuka, your kindness quietly brings warmth to everyone around you.",
+"Sometimes even the strongest personalities hide a beautiful heart.",
 
-"Happy Women's Day Shizuka. The world feels softer because you are in it.",
+"Sunitha, every story has a hero — even the misunderstood ones.",
 
-"Sunitha, the universe shines brighter because of your smile.",
+"Not everyone understands your strength, but it still shines.",
 
-"Happy Women's Day Sunitha. Just being you makes life more beautiful.",
-
-"Shizuka, today we celebrate the strength and beauty you bring to this world."
+"Some people look rude but carry storms inside."
 
 ];
 
-/* images */
+const media=[
 
-const images=[
+{type:"image",src:"https://raw.githubusercontent.com/CreativeThinking123/for_rude_person/main/b1.jpeg"},
 
-"https://raw.githubusercontent.com/CreativeThinking123/for_Devi/main/k1.jpeg",
+{type:"video",src:"https://raw.githubusercontent.com/CreativeThinking123/for_rude_person/main/b2.mp4"},
 
-"https://raw.githubusercontent.com/CreativeThinking123/for_hema/main/h2.jpg",
+{type:"video",src:"https://raw.githubusercontent.com/CreativeThinking123/for_rude_person/main/b3.mp4"},
 
-"https://raw.githubusercontent.com/CreativeThinking123/for_hema/main/h3.jpg",
+{type:"image",src:"https://raw.githubusercontent.com/CreativeThinking123/for_rude_person/main/b4.jpeg"},
 
-"https://raw.githubusercontent.com/CreativeThinking123/for_Devi/main/k2.jpeg",
-
-"https://raw.githubusercontent.com/CreativeThinking123/for_hema/main/h4.jpg",
-
-"https://raw.githubusercontent.com/CreativeThinking123/for_Devi/main/k3.jpeg",
-
-"https://raw.githubusercontent.com/CreativeThinking123/for_hema/main/h5.jpg",
-
-"https://raw.githubusercontent.com/CreativeThinking123/for_hema/main/h6.jpg",
-
-"https://raw.githubusercontent.com/CreativeThinking123/for_Devi/main/k4.jpeg"
+{type:"image",src:"https://raw.githubusercontent.com/CreativeThinking123/for_rude_person/main/b5.jpeg"}
 
 ];
 
 let index=0;
-
-/* click to change quote + image */
 
 document.addEventListener("click",function(){
 
@@ -283,14 +261,28 @@ if(document.getElementById("main").style.display==="flex"){
 
 document.getElementById("quote").innerText=quotes[index];
 
-let img=document.getElementById("bouquet");
+let img=document.getElementById("imageMedia");
+let vid=document.getElementById("videoMedia");
 
-img.src=images[index];
+img.style.display="none";
+vid.style.display="none";
+
+if(media[index].type==="image"){
+
+img.src=media[index].src;
 img.style.display="block";
+
+}else{
+
+vid.src=media[index].src;
+vid.style.display="block";
+vid.play();
+
+}
 
 index++;
 
-if(index>=quotes.length){
+if(index>=media.length){
 index=0;
 }
 
